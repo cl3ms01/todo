@@ -1,0 +1,60 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: auto;
+}
+
+.header {
+    background-color: coral;
+    border: 3px solid grey;
+    border-radius: 50px 50px 50px 50px;
+    margin: 0;
+    text-align: center;
+    color: maroon;
+}
+
+.container{
+    border: 2px solid darkgrey;
+    border-radius: 50px 50px 0 0;
+    background-color: antiquewhite;
+    padding-left: 20px;
+}
+
+.container h1{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+}
+
+.container input[type="text"]{
+    background-color: coral;
+    width: 60%;
+}
+
+.container input[type="button"]{
+    border-radius: 15px 15px 15px 15px;
+    background-color: antiquewhite;
+}
+
+.error{
+    color: red;
+    margin: 0;
+    font-weight: bolder;
+}
+
+.delete{
+    float:right;
+    background-color: red;
+}
+
+.taskItem{
+    padding-left: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    height: 22px;
+}
+
+.btn:hover{
+    cursor: pointer;
+}
+
+.delete:hover{
+    cursor: pointer;
+}
