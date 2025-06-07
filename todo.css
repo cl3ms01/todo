@@ -141,4 +141,12 @@ li i {
         margin-top: 10px;
         margin-bottom: 10px;
     }
+    .form{
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        justify-self: flex-end;
+        text-align: center;
+        margin: auto;
+    }
 }
