@@ -1,56 +1,95 @@
-var form = document.getElementById('clement');
-var taskList = document.getElementById('eloho');
-var error = document.getElementById('errorMsg');
+const form = document.getElementById('todoForm');
+const taskList = document.getElementById('todoTask');
+const error = document.getElementById('errorMsg');
+const input = document.getElementById('formInput')
+const hide = document.querySelector('.addedTask')
+const deleteAll = document.getElementById('deleteBtn')
 
 form.addEventListener('submit', addTodo);
 taskList.addEventListener('click', removeTask);
+deleteAll.addEventListener('click', removeAll)
 
 function addTodo(e) {
     e.preventDefault();
-    var newTask = document.getElementById('kester').value;
+    const newTask = document.getElementById('formInput').value
     if (newTask === "") {
-        error.innerText = "Please add a task!";
-        error.style.display = "block";
+        error.classList.replace('hidden', 'error');
         setTimeout(function() {
-            error.style.display = "none";
-        }, 1000);
-    }
-    else {
-    var li = document.createElement('li');
+            error.classList.replace('error', 'hidden');
+        }, 2000);
+        return;
+    } else {
+    const todoTask = capitalizeFirstLetter(newTask)
+    const li = document.createElement('li');
     li.className = 'taskItem';
-    li.appendChild(document.createTextNode(newTask));
+    li.innerHTML = `<span>${todoTask}</span><i class="fa-sharp fa-solid fa-xmark delete"></i>`;
     taskList.appendChild(li);
-    var btn = document.createElement('button');
-    btn.className = 'delete';
-    btn.appendChild(document.createTextNode('Remove Item'));
-    li.appendChild(btn);
-    taskList.appendChild(li);
-    document.getElementById('kester').value = "";
-
-     var items = taskList.querySelectorAll('li');
-        items.forEach(function(item, index) {
-            if ((index + 1) % 2 === 0) {
-                item.style.backgroundColor = '#ccc'; // even
-            } else {
-                item.style.backgroundColor = '#f4f4f4'; // odd
-            }
-        });
+    input.value = ''
+    saveTasks(todoTask)
     }
+    clearUI()
+    return
 }
 
 function removeTask(e){
     if(e.target.classList.contains('delete')){
         if(confirm('Are you sure?')){
-            var li = e.target.parentElement;
-            taskList.removeChild(li);
-    var items = taskList.querySelectorAll('li');
-        items.forEach(function(item, index) {
-            if ((index + 1) % 2 === 0) {
-                item.style.backgroundColor = '#ccc'; // even
-            } else {
-                item.style.backgroundColor = '#f4f4f4'; // odd
-            }
-        });
+            const li = e.target.parentElement
+            const text = li.firstElementChild.textContent
+            taskList.removeChild(li)
+            removeTaskFromStorage(text)
         }
     }
+    clearUI()
+    return
 }
+
+function removeAll(e) {
+    if (e.target.classList.contains('deleteAll')) {
+        if(confirm('Delete all tasks')){
+            const li = e.target.parentElement
+            document.querySelector('.container').removeChild(li)
+            localStorage.removeItem('tasks')
+        }
+    }
+    clearUI()
+    return
+}
+
+function clearUI() {
+    if (taskList.children.length === 0) {
+        hide.style.display = 'none'
+    } else {
+        hide.style.display = 'flex'
+    }
+    return
+}
+
+function capitalizeFirstLetter(str) {
+    return (str.charAt(0).toUpperCase() + str.slice(1))
+}
+
+function getTasks () {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || []
+    tasks.forEach(task => {
+        const li = document.createElement('li')
+        li.className = 'taskItem'
+        li.innerHTML = `<span>${task}</span><i class="fa-sharp fa-solid fa-xmark delete"></i>`
+        taskList.appendChild(li)
+    });
+}
+
+function saveTasks (task) {
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || []
+    tasks.push(task)
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+}
+
+function removeTaskFromStorage(taskToRemove) {
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || []
+    tasks = tasks.filter(task => task !== taskToRemove)
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+}
+
+clearUI()
+document.addEventListener('DOMContentLoaded', getTasks)

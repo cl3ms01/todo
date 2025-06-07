@@ -3,24 +3,28 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="todo.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
     <title>
         To-Do List
     </title>
     <body>
         <header class="header">
-            <h1>TO-DO LIST</h1>
+            <h1><i class="fa-solid fa-pen-nib"></i>TO-DO LIST</h1>
         </header>
         <div class="container">
-            <form id="clement" class="form">
-                <h1>Fill the form below to add tasks to the list!</h1>
-                <p class="error" id="errorMsg"></p>
-                <input type="text" placeholder="Add a task" id="kester" class="addTask">
-                <input value="Add Task" type="submit" class="btn">
-            </form>
-            <ol id="eloho" class="tasks">
-                <li class="taskItem">Add task...<button class="delete">Remove Task</button></li>
-            </ol>
+            <div class="formc">
+                <form id="todoForm" class="form">
+                    <h1>Add a task below</h1>
+                    <p class="hidden" id="errorMsg">Please add a task!</p>
+                    <input type="text" placeholder="..." id="formInput" class="addTask">
+                    <button type="submit" class="btn" id="submitBtn"><i class="fa-sharp fa-solid fa-pen"></i>Add Task</button>
+                </form>
+            </div>
+            <div class="addedTask">
+                <ol id="todoTask" class="tasks"></ol>
+                <button class="btn deleteAll" id="deleteBtn">DELETE ALL</button>
+            </div>
         </div>
         <script src="main.js"></script>
     </body>   
